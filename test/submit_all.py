@@ -11,7 +11,7 @@ def getOptions() :
   parser = argparse.ArgumentParser(description='CLI for CRAB config file settings')
   parser.add_argument('cmsRun_cfg', type=str, default="runBTagAnalyzer_cfg.py", 
       help='The crab script you want to submit')
-  parser.add_argument('-i', '--inputFiles', type=str, default='CRAB/input.txt',
+  parser.add_argument('-i', '--inputFiles', type=str, default=None,
       help='Input files that need to be shipped with the job')
   parser.add_argument('-p', '--pyCfgParams', nargs='+', type=str, default='',
       help='Input parameters for config file')
