@@ -1766,6 +1766,7 @@ void BTagAnalyzerT<IPTI,VTX>::processJets(const edm::Handle<PatJetCollection>& j
   JetInfo[iJetColl].nSVDeepDoubleX = 0;
   JetInfo[iJetColl].nSVDeepBoostedJet = 0;
   JetInfo[iJetColl].DeepFlavourInput_nTrack = 0;
+  JetInfo[iJetColl].DeepFlavourInput_nSV = 0;
 
   //Initialize new test variables for AK4 jets: to be cleaned up in the future
   JetInfo[iJetColl].Jet_trackSip2dSig_AboveBottom_0[JetInfo[iJetColl].nJet] = -19.;
@@ -3043,28 +3044,54 @@ void BTagAnalyzerT<IPTI,VTX>::processJets(const edm::Handle<PatJetCollection>& j
       JetInfo[iJetColl].DeepFlavourInput_nFirstTrk[JetInfo[iJetColl].nJet] = JetInfo[iJetColl].DeepFlavourInput_nTrack;
       
       for(int trackIdx=0; trackIdx < nTrack; ++trackIdx) {
+      	JetInfo[iJetColl].DeepFlavourInput_charged_EtaRel[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackEtaRel; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_PtRel[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackPtRel; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_PtRatio[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackPtRatio; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_PPar[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackPPar; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_DeltaR[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackDeltaR; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_PParRatio[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackPParRatio; 
       	JetInfo[iJetColl].DeepFlavourInput_charged_Sip3dVal[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackSip3dVal; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_Sip3dSig[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackSip3dSig; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_Sip2dVal[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackSip2dVal; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_Sip2dSig[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackSip2dSig; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_JetDistVal[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_trackJetDistVal; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_chi2[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_chi2; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_quality[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_quality; 
+      	JetInfo[iJetColl].DeepFlavourInput_charged_drminsv[JetInfo[iJetColl].DeepFlavourInput_nTrack + trackIdx]  =  features.c_pf_features[trackIdx].btagPf_drminsv; 
       }
 
       JetInfo[iJetColl].nTrkDeepFlavourInput[JetInfo[iJetColl].nJet] = nTrack;
       JetInfo[iJetColl].DeepFlavourInput_nTrack += nTrack;
       JetInfo[iJetColl].DeepFlavourInput_nLastTrk[JetInfo[iJetColl].nJet] = JetInfo[iJetColl].DeepFlavourInput_nTrack;
 
-
-      //JetInfo[iJetColl].DeepFlavourInput_charged_Sip3dVal[JetInfo[iJetColl].nJet] = (csize == 0) ? -999 : features.c_pf_features[1].btagPf_trackSip3dVal;
-      JetInfo[iJetColl].DeepFlavourInput_charged_Sip3dSig[JetInfo[iJetColl].nJet] = (csize == 0) ? -999 : features.c_pf_features[0].btagPf_trackSip3dSig;
-      JetInfo[iJetColl].DeepFlavourInput_charged_quality[ JetInfo[iJetColl].nJet] = (csize == 0) ? -999 : features.c_pf_features[0].quality;
-      JetInfo[iJetColl].DeepFlavourInput_charged_chi2[    JetInfo[iJetColl].nJet] = (csize == 0) ? -999 : features.c_pf_features[0].chi2;
-
-      size_t nsize = features.n_pf_features.size();
-      JetInfo[iJetColl].DeepFlavourInput_neutral_drminsv[JetInfo[iJetColl].nJet] = (nsize == 0) ? -999 : features.n_pf_features[0].drminsv;
-      JetInfo[iJetColl].DeepFlavourInput_neutral_hadFrac[JetInfo[iJetColl].nJet] = (nsize == 0) ? -999 : features.n_pf_features[0].hadFrac;
-      JetInfo[iJetColl].DeepFlavourInput_neutral_ptrel[  JetInfo[iJetColl].nJet] = (nsize == 0) ? -999 : features.n_pf_features[0].ptrel;
+      //size_t nsize = features.n_pf_features.size();
+      //JetInfo[iJetColl].DeepFlavourInput_neutral_drminsv[JetInfo[iJetColl].nJet] = (nsize == 0) ? -999 : features.n_pf_features[0].drminsv;
+      //JetInfo[iJetColl].DeepFlavourInput_neutral_hadFrac[JetInfo[iJetColl].nJet] = (nsize == 0) ? -999 : features.n_pf_features[0].hadFrac;
+      //JetInfo[iJetColl].DeepFlavourInput_neutral_ptrel[  JetInfo[iJetColl].nJet] = (nsize == 0) ? -999 : features.n_pf_features[0].ptrel;
 
       size_t svsize = features.sv_features.size();
-      JetInfo[iJetColl].DeepFlavourInput_sv_d3d[     JetInfo[iJetColl].nJet] = (svsize == 0) ? -999 :features.sv_features[0].d3d;
-      JetInfo[iJetColl].DeepFlavourInput_sv_d3dsig[  JetInfo[iJetColl].nJet] = (svsize == 0) ? -999 :features.sv_features[0].d3dsig;
-      JetInfo[iJetColl].DeepFlavourInput_sv_normchi2[JetInfo[iJetColl].nJet] = (svsize == 0) ? -999 :features.sv_features[0].normchi2;
+      int nSV = (int) nSV;
+      JetInfo[iJetColl].DeepFlavourInput_nFirstSV[JetInfo[iJetColl].nJet] = JetInfo[iJetColl].DeepFlavourInput_nSV;
+
+      for(int svIdx=0; svIdx < nSV; ++svIdx) {
+      	JetInfo[iJetColl].DeepFlavourInput_sv_pt[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].pt; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_mass[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].mass; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_deltaR[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].deltaR; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_ntracks[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].ntracks; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_chi2[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].chi2; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_normchi2[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].normchi2; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_dxy[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].dxy; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_dxysig[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].dxysig; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_d3d[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].d3d; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_d3dsig[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].d3dsig; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_costhetasvpv[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].costhetasvpv; 
+      	JetInfo[iJetColl].DeepFlavourInput_sv_enratio[JetInfo[iJetColl].DeepFlavourInput_nSV + svIdx]  =  features.sv_features[svIdx].enratio; 
+      }
+
+      JetInfo[iJetColl].nSVDeepFlavourInput[JetInfo[iJetColl].nJet] = nSV;
+      JetInfo[iJetColl].DeepFlavourInput_nSV += nSV;
+      JetInfo[iJetColl].DeepFlavourInput_nLastSV[JetInfo[iJetColl].nJet] = JetInfo[iJetColl].DeepFlavourInput_nSV;
+
     }
 
 
