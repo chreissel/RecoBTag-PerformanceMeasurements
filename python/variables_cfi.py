@@ -4399,6 +4399,14 @@ variableList = [
       runOptions  = cms.vstring("runTagVariables", "runTagVariablesSubJets"),
     ),
     cms.PSet(
+      variable    = cms.string("DeepFlavourInput_nTrack"),
+      store       = cms.bool(False),
+      mconly      = cms.bool(False),
+      description = cms.string("DeepFlavourInput_nTrack"),
+      requires    = cms.vstring(),
+      runOptions  = cms.vstring(),
+    ),
+    cms.PSet(
       variable    = cms.string("nTrkDeepFlavourInput"),
       store       = cms.bool(False),
       mconly      = cms.bool(False),
@@ -4427,7 +4435,7 @@ variableList = [
       store       = cms.bool(False),
       mconly      = cms.bool(False),
       description = cms.string("DeepFlavourInput_charged_Sip3dVal"),
-      requires    = cms.vstring("nJet"),
+      requires    = cms.vstring("DeepFlavourInput_nTrack"),
       runOptions  = cms.vstring("runDeepFlavourTagVariables"),
     ),
     cms.PSet(
