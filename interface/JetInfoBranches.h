@@ -423,7 +423,13 @@ class JetInfoBranches {
     float TagVar_flightDistance3dSig[nMaxSVs_];
 
     //DeepFlavour input features selection
-    float DeepFlavourInput_charged_Sip3dVal[nMaxJets_];
+    //
+    int   nTrkDeepFlavourInput[nMaxJets_];
+    int   DeepFlavourInput_nFirstTrk[nMaxJets_];
+    int   DeepFlavourInput_nLastTrk[nMaxJets_];
+    //float DeepFlavourInput_charged_Sip3dVal[nMaxTrk_];
+
+    //float DeepFlavourInput_charged_Sip3dVal[nMaxJets_];
     float DeepFlavourInput_charged_Sip3dSig[nMaxJets_];
     float DeepFlavourInput_charged_quality[ nMaxJets_];
     float DeepFlavourInput_charged_chi2[    nMaxJets_];
@@ -994,7 +1000,13 @@ class JetInfoBranches {
       if(variableParser.isToBeStored(name+"TagVar_flightDistance3dVal")) tree->Branch((name+"TagVar_flightDistance3dVal").c_str()      ,TagVar_flightDistance3dVal      ,(name+"TagVar_flightDistance3dVal["+name+"nSVTagVar]/F").c_str() );
       if(variableParser.isToBeStored(name+"TagVar_flightDistance3dSig")) tree->Branch((name+"TagVar_flightDistance3dSig").c_str()      ,TagVar_flightDistance3dSig      ,(name+"TagVar_flightDistance3dSig["+name+"nSVTagVar]/F").c_str() );
 
-      if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dVal")) tree->Branch((name+"DeepFlavourInput_charged_Sip3dVal").c_str(), DeepFlavourInput_charged_Sip3dVal, (name+"DeepFlavourInput_charged_Sip3dVal["+name+"nJet]/F").c_str());
+      //DeepFlavour Input variables
+
+      if(variableParser.isToBeStored(name+"nTrkDeepFlavourInput")) tree->Branch((name+"nTrkDeepFlavourInput").c_str(), &nTrkDeepFlavourInput          ,(name+"nTrkDeepFlavourInput[nJet]/I").c_str());
+      if(variableParser.isToBeStored(name+"DeepFlavourInput_nFirstTrk")) tree->Branch((name+"DeepFlavourInput_nFirstTrk").c_str() , &DeepFlavourInput_nFirstTrk  ,(name+"DeepFlavourInput_nFirstTrk["+name+"nJet]/I").c_str() );
+      if(variableParser.isToBeStored(name+"DeepFlavourInput_nLastTrk")) tree->Branch((name+"DeepFlavourInput_nLastTrk").c_str() , &DeepFlavourInput_nLastTrk  ,(name+"DeepFlavourInput_nLastTrk["+name+"nJet]/I").c_str() );
+      //if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dVal")) tree->Branch((name+"DeepFlavourInput_charged_Sip3dVal").c_str(), DeepFlavourInput_charged_Sip3dVal, (name+"DeepFlavourInput_charged_Sip3dVal["+name+"nTrkDeepFlavourInput]/F").c_str());
+      //if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dVal")) tree->Branch((name+"DeepFlavourInput_charged_Sip3dVal").c_str(), DeepFlavourInput_charged_Sip3dVal, (name+"DeepFlavourInput_charged_Sip3dVal["+name+"nJet]/F").c_str());
       if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dSig")) tree->Branch((name+"DeepFlavourInput_charged_Sip3dSig").c_str(), DeepFlavourInput_charged_Sip3dSig, (name+"DeepFlavourInput_charged_Sip3dSig["+name+"nJet]/F").c_str());
       if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_quality")) tree->Branch((name+"DeepFlavourInput_charged_quality" ).c_str(), DeepFlavourInput_charged_quality , (name+"DeepFlavourInput_charged_quality[" +name+"nJet]/F").c_str());
       if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_chi2")) tree->Branch((name+"DeepFlavourInput_charged_chi2"    ).c_str(), DeepFlavourInput_charged_chi2    , (name+"DeepFlavourInput_charged_chi2["    +name+"nJet]/F").c_str());
@@ -1659,7 +1671,13 @@ class JetInfoBranches {
       if(variableParser.isToBeStored(name+"TagVar_flightDistance3dVal")) tree->SetBranchAddress((name+"TagVar_flightDistance3dVal").c_str()      ,TagVar_flightDistance3dVal       );
       if(variableParser.isToBeStored(name+"TagVar_flightDistance3dSig")) tree->SetBranchAddress((name+"TagVar_flightDistance3dSig").c_str()      ,TagVar_flightDistance3dSig       );
 
-      if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dVal")) tree->SetBranchAddress((name+"DeepFlavourInput_charged_Sip3dVal").c_str(), DeepFlavourInput_charged_Sip3dVal);
+
+      //DeepFlavour Inputs
+      if(variableParser.isToBeStored(name+"nTrkDeepFlavourInput")) tree->SetBranchAddress((name+"nTrkDeepFlavourInput").c_str(), nTrkDeepFlavourInput );
+      if(variableParser.isToBeStored(name+"DeepFlavourInput_nFirstTrk")) tree->SetBranchAddress((name+"DeepFlavourInput_nFirstTrk").c_str(), DeepFlavourInput_nFirstTrk);
+      if(variableParser.isToBeStored(name+"DeepFlavourInput_nLastTrk")) tree->SetBranchAddress((name+"DeepFlavourInput_nLastTrk").c_str(), DeepFlavourInput_nLastTrk);
+      //if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dVal")) tree->SetBranchAddress((name+"DeepFlavourInput_charged_Sip3dVal").c_str(), DeepFlavourInput_charged_Sip3dVal);
+      //if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dVal")) tree->SetBranchAddress((name+"DeepFlavourInput_charged_Sip3dVal").c_str(), DeepFlavourInput_charged_Sip3dVal);
       if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_Sip3dSig")) tree->SetBranchAddress((name+"DeepFlavourInput_charged_Sip3dSig").c_str(), DeepFlavourInput_charged_Sip3dSig);
       if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_quality")) tree->SetBranchAddress((name+"DeepFlavourInput_charged_quality" ).c_str(), DeepFlavourInput_charged_quality );
       if(variableParser.isToBeStored(name+"DeepFlavourInput_charged_chi2")) tree->SetBranchAddress((name+"DeepFlavourInput_charged_chi2"    ).c_str(), DeepFlavourInput_charged_chi2    );

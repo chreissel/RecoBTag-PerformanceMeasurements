@@ -5,7 +5,8 @@ common = {
 }
 
 mc = {
-	'inputFiles' : ['/store/relval/CMSSW_10_5_0_pre1/RelValTTbar_13/MINIAODSIM/104X_upgrade2018_realistic_pixelCand_v1-v1/20000/BE6E5F4F-4AAE-C94F-BB04-946DC9406DB8.root'],
+	#'inputFiles' : ['/store/relval/CMSSW_10_5_0_pre1/RelValTTbar_13/MINIAODSIM/104X_upgrade2018_realistic_pixelCand_v1-v1/20000/BE6E5F4F-4AAE-C94F-BB04-946DC9406DB8.root'],
+	'inputFiles' : ['/store/mc/Run3Summer19MiniAOD/TTbar_14TeV_TuneCP5_Pythia8/MINIAODSIM/106X_mcRun3_2021_realistic_v3-v2/130000/3B067ADF-8644-5240-8235-262C0089FE51.root'],
 	'JPCalibration' : 'JPcalib_MC94X_2017_v1',
 	'mcGlobalTag' : '104X_upgrade2018_realistic_pixelCand_v1',
 	}
